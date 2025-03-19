@@ -301,6 +301,8 @@ mod addr_stream {
     use std::net::SocketAddr;
     #[cfg(unix)]
     use std::os::unix::io::{AsRawFd, RawFd};
+    #[cfg(target_vendor = "wasmer")]
+    use std::os::wasi::io::{AsRawFd, RawFd};
     use std::pin::Pin;
     use std::task::{Context, Poll};
     use tokio::io::{AsyncRead, AsyncWrite, ReadBuf};
@@ -411,7 +413,7 @@ mod addr_stream {
         }
     }
 
-    #[cfg(unix)]
+    #[cfg(any(unix, target_vendor = "wasmer"))]
     impl AsRawFd for AddrStream {
         fn as_raw_fd(&self) -> RawFd {
             self.inner.as_raw_fd()

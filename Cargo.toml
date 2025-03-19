@@ -256,3 +256,7 @@ required-features = ["full"]
 name = "server"
 path = "tests/server.rs"
 required-features = ["full"]
+
+[patch.crates-io]
+tokio = { git = "https://github.com/cristibctr/tokio-wasix", branch = "wasix-1.41.1" }
+socket2 = { git = "https://github.com/cristibctr/socket2.git", branch = "v0.5.8" }
